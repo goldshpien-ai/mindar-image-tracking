@@ -1,66 +1,49 @@
 <!DOCTYPE html>
-<html lang="ru">
-
+<html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
-
-  <link rel="icon" href="public/fav.png">
-  <title>Живой фотоальбом</title>
 </head>
-
 <body>
-
-  <a-scene
-    mindar-image="imageTargetSrc: public/targets.mind; uiScanning: no"
-    color-space="sRGB"
-    renderer="colorManagement: true, physicallyCorrectLights"
-    vr-mode-ui="enabled: false"
+  <a-scene mindar-image="imageTargetSrc: ./assets/images/targets.mind; maxTrack: 1" color-space="sRGB"
+    renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
     device-orientation-permission-ui="enabled: false">
 
+    <a-camera position="0 0 0" look-controls="enabled: false"></a-camera>
+
     <a-assets>
-      <video
-        id="card"
-        src="public/overlay.mp4"
-        autoplay
-        loop
-        muted
-        playsinline>
-      </video>
+      <!-- Три видео: id должны быть уникальными -->
+      <video id="vid0" src="./assets/images/video1.mp4" autoplay loop muted playsinline webkit-playsinline></video>
+      <video id="vid1" src="./assets/images/video2.mp4" autoplay loop muted playsinline webkit-playsinline></video>
+      <video id="vid2" src="./assets/images/video3.mp4" autoplay loop muted playsinline webkit-playsinline></video>
     </a-assets>
 
-    <a-camera
-      position="0 0 0"
-      look-controls="enabled: false">
-    </a-camera>
-
+    <!-- ЦЕЛЬ 0: Первое фото (первое в компиляторе) -->
     <a-entity mindar-image-target="targetIndex: 0">
+      <a-video src="#vid0" position="0 0 0" height="1.333" width="1" rotation="0 0 0"></a-video>
+    </a-entity>
 
-      <a-plane
-        src="#card"
-        position="0 0 0"
-        width="1"
-        height="0.5625">
-      </a-plane>
+    <!-- ЦЕЛЬ 1: Второе фото -->
+    <a-entity mindar-image-target="targetIndex: 1">
+      <a-video src="#vid1" position="0 0 0" height="1.777" width="1" rotation="0 0 0"></a-video>
+    </a-entity>
 
+    <!-- ЦЕЛЬ 2: Третье фото -->
+    <a-entity mindar-image-target="targetIndex: 2">
+      <a-video src="#vid2" position="0 0 0" height="1" width="1.777" rotation="0 0 0"></a-video>
     </a-entity>
 
   </a-scene>
 
   <script>
-    window.addEventListener("click", () => {
-      const video = document.querySelector("#card");
-
-      if (video) {
-        video.play().catch(error => {
-          console.log("Video play error:", error);
-        });
-      }
+    // Этот код нужен для включения ЗВУКА (см. шаг 5)
+    window.addEventListener('click', () => {
+      document.querySelectorAll('video').forEach(vid => {
+        vid.muted = false;
+        vid.play().catch(e => console.log("Ошибка воспроизведения:", e));
+      });
     });
   </script>
-
 </body>
 </html>
