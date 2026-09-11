@@ -1,12 +1,15 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+  <link rel="icon" href="public/fav.png">
+  <title>Живой фотоальбом</title>
 </head>
 <body>
-  <a-scene mindar-image="imageTargetSrc: ./assets/images/targets.mind; maxTrack: 1" color-space="sRGB"
+  <a-scene mindar-image="imageTargetSrc: public/targets.mind; uiScanning: no" color-space="sRGB"
     renderer="colorManagement: true, physicallyCorrectLights" vr-mode-ui="enabled: false"
     device-orientation-permission-ui="enabled: false">
 
@@ -14,9 +17,9 @@
 
     <a-assets>
       <!-- Три видео: id должны быть уникальными -->
-      <video id="vid0" src="./assets/images/video1.mp4" autoplay loop muted playsinline webkit-playsinline></video>
-      <video id="vid1" src="./assets/images/video2.mp4" autoplay loop muted playsinline webkit-playsinline></video>
-      <video id="vid2" src="./assets/images/video3.mp4" autoplay loop muted playsinline webkit-playsinline></video>
+      <video id="vid0" src=".public/video1.mp4" autoplay loop muted playsinline webkit-playsinline></video>
+      <video id="vid1" src=".public/video2.mp4" autoplay loop muted playsinline webkit-playsinline></video>
+      <video id="vid2" src="public/video3.mp4" autoplay loop muted playsinline webkit-playsinline></video>
     </a-assets>
 
     <!-- ЦЕЛЬ 0: Первое фото (первое в компиляторе) -->
